@@ -72,9 +72,8 @@ DOMAIN=https://your-domain.com:3003
 NODE_ENV=production
 
 ### 5. Start the Node API
-node server.js
-# Or with PM2 for background run:
-# npx pm2 start server.js --name usdz_api
+#### node server.js
+#### Or with PM2 for background run:
 
 
 6. (Optional) Serve via Nginx
