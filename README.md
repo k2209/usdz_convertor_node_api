@@ -53,7 +53,23 @@ git clone https://github.com/yourusername/usdz_convertor_node_api.git
 cd usdz_convertor_node_api
 
 ### 2. Build the Docker Image
-This uses the included Dockerfile to build a container with usd_from_gltf:
+You must first build the base USD image, which is used for all further builds.
+
+cd usd
+docker build -t leon/usd:latest .
+This will create a Docker image named leon/usd:latest from the Dockerfile inside the usd folder.
+
+Tip: This step can also take some time (10–15 minutes) the first time, as it builds all USD dependencies.
+
+## Build the glTF-to-USDZ Image
+Now you can build the final Docker image for the API (which depends on the base USD image):
+
+cd ../usd-from-gltf
+docker build -t gltf-to-usdz:latest .
+This image will use the USD tools and add usd_from_gltf on top.
+
+Tip: The first build will be slower, but subsequent builds are faster.
+
 
 cd usd-from-gltf
 docker build -t gltf-to-usdz:latest .
