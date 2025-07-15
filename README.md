@@ -61,7 +61,7 @@ This will create a Docker image named leon/usd:latest from the Dockerfile inside
 
 Tip: This step can also take some time (10–15 minutes) the first time, as it builds all USD dependencies.
 
-## Build the glTF-to-USDZ Image
+### Build the glTF-to-USDZ Image
 Now you can build the final Docker image for the API (which depends on the base USD image):
 
 cd ../usd-from-gltf
