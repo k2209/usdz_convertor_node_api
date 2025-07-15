@@ -1,0 +1,104 @@
+# USDZ Convertor Node API
+
+A self-hosted REST API to convert `.glb` 3D models to `.usdz` format using Docker, Node.js, and the [usd_from_gltf](https://github.com/google/usd_from_gltf) converter.  
+Easily deploy on your own server to offer fast USDZ conversion for iOS AR experiences.
+
+
+
+## Features
+
+- Accepts remote `.glb` file URLs via API.
+- Downloads and converts them to `.usdz` using Docker.
+- Serves `.usdz` files over HTTP(S) for instant AR QuickLook on iOS.
+- Easy to set up with Node.js and Docker.
+
+
+
+## Folder Structure
+
+usd-convertor-node-api/
+├── usd-from-gltf/ # Google usd_from_gltf source and Dockerfile
+├── usd/ # (if required) USD libraries or assets
+├── usdz_convertor_api/ # Node.js Express API code
+│ ├── public/
+│ │ └── converted/ # Exposed USDZ file output
+│ └── temp/ # Temporary working files
+├── README.md
+└── ... (Dockerfiles, configs, etc)
+
+
+
+## Requirements
+
+- Ubuntu 20.04+ (or any Linux with Docker)
+- **Docker** installed and running
+- **Node.js** v16+ and **npm**
+- Open port `3003` (or your chosen API port)
+- (For HTTPS) SSL certificates (Let's Encrypt recommended)
+
+
+## Quick Setup
+### 1. Clone the Repository
+git clone https://github.com/yourusername/usdz_convertor_node_api.git
+cd usdz_convertor_node_api
+
+2. Build the Docker Image
+This uses the included Dockerfile to build a container with usd_from_gltf:
+
+cd usd-from-gltf
+docker build -t gltf-to-usdz:latest .
+Tip: This step can take 10+ minutes the first time (it compiles USD libraries).
+
+3. Install Node.js Dependencies
+cd ../usdz_convertor_api
+npm install
+
+5. Configure Your Environment
+Create a .env file in usdz_convertor_api (optional, for domain/port customization):
+
+env
+PORT=3003
+DOMAIN=https://your-domain.com:3003
+NODE_ENV=production
+
+5. Start the Node API
+node server.js
+# Or with PM2 for background run:
+# npx pm2 start index.js --name usdz_api
+For HTTPS: Use https.createServer in your Node.js code, and point to your SSL certs.
+
+6. (Optional) Serve via Nginx
+You can reverse proxy the /converted directory for pretty URLs, but it's not required.
+
+API Usage
+Convert .glb to .usdz
+Endpoint:
+GET /convertglbtousdz?url=<GLB_FILE_URL>
+Example:
+curl "https://your-domain.com:3003/convertglbtousdz?url=https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+
+Response:
+{
+  "success": true,
+  "usdz_url": "https://your-domain.com:3003/converted/Astronaut.usdz"
+}
+
+Health Check
+Endpoint:
+PATCH /health
+Response:
+{
+  "message": "From USDZ Convertor",
+  "success": true
+}
+
+Notes
+Temporary and output files are auto-cleaned after serving.
+Ensure Docker can run as the same user as Node.js or use sudo if required.
+For large .glb files, network speed and Docker build time can affect conversion speed.
+
+Credits
+- [leon/docker-gltf-to-udsz](https://github.com/leon/docker-gltf-to-udsz)
+- [Google usd_from_gltf](https://github.com/google/usd_from_gltf)
+- [Pixar USD](https://github.com/PixarAnimationStudios/USD)
+Node.js, Express, Docker
