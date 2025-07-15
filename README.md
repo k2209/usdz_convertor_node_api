@@ -59,11 +59,11 @@ cd usd-from-gltf
 docker build -t gltf-to-usdz:latest .
 Tip: This step can take 10+ minutes the first time (it compiles USD libraries).
 
-###3. Install Node.js Dependencies
+### 3. Install Node.js Dependencies
 cd ../usdz_convertor_api
 npm install
 
-###4. Configure Your Environment
+### 4. Configure Your Environment
 Create a .env file in usdz_convertor_api (optional, for domain/port customization):
 
 env
@@ -71,7 +71,7 @@ PORT=3003
 DOMAIN=https://your-domain.com:3003
 NODE_ENV=production
 
-###5. Start the Node API
+### 5. Start the Node API
 node server.js
 # Or with PM2 for background run:
 # npx pm2 start server.js --name usdz_api
