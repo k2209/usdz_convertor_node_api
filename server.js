@@ -10,17 +10,18 @@ const PORT = 3003;
 
 // Paths
 const WORK_DIR = path.join(__dirname, 'temp');
-const PUBLIC_DIR = path.join(__dirname, 'public', 'converted');
-const PUBLIC_URL = 'http://34.47.157.113:/converted'; // Change to your domain
+const PUBLIC_DIR = "/var/www/html/docker-gltf-to-udsz/usdz_convertor_node_api/public/converted"
+const PUBLIC_URL = 'http://34.47.157.113:/public'; // Change to your domain
 
 // Ensure working dirs exist
 if (!fs.existsSync(WORK_DIR)) fs.mkdirSync(WORK_DIR, { recursive: true });
 if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
 
 // Serve /converted as static
-app.use('/converted', express.static(PUBLIC_DIR));
+app.use('/public', express.static('public'));
 
-app.patch('/health', (req, res) => res.json({ message: "From USDZ Convertor",success: true }));
+
+app.patch('/health', (req, res) => res.json({ message: "From USDZ Convertor", success: true }));
 
 app.get('/convertglbtousdz', async (req, res) => {
     const glbUrl = req.query.url;
