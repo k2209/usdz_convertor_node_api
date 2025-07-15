@@ -13,13 +13,27 @@ Easily deploy on your own server to offer fast USDZ conversion for iOS AR experi
 - Easy to set up with Node.js and Docker.
 
 
-<pre>
-usd_convertor_node_api/
-├── usd-from-gltf/         # Google usd_from_gltf source and Dockerfile(s)
-├── usd/                   # (Optional) Additional USD libraries/assets if needed
-<pre> usdz_convertor_node_api/ ├── usd-from-gltf/ # Google usd_from_gltf source and Dockerfile(s) ├── usd/ # (Optional) Additional USD libraries/assets if needed ├── usdz_convertor_api/ # Node.js Express API code │ ├── public/ │ │ └── converted/ # Exposed USDZ file output (publicly accessible) │ ├── temp/ # Temporary working files (not public) │ ├── .env # Environment variables │ ├── .gitignore │ ├── config.js │ ├── package.json │ ├── package-lock.json │ ├── sample.env │ └── server.js ├── README.md └── ... </pre>
-├── README.md
-</pre>
+usdz_convertor_node_api/
+├── usd-from-gltf/                 # Google 'usd_from_gltf' source and main Dockerfile for building
+│   └── Dockerfile
+│
+├── usd/                           # Pixar USD source/libraries; may also contain its own Dockerfile
+│   └── Dockerfile
+│
+├── usdz_convertor_api/           # Node.js Express API for conversion
+│   ├── public/                   # Publicly accessible files
+│   │   └── converted/            # Output folder for converted USDZ files
+│   │
+│   ├── temp/                     # Temporary files used during conversion (auto-deleted post-process)
+│   ├── .env                      # Environment variables
+│   ├── .gitignore
+│   ├── config.js                 # Configuration file
+│   ├── package.json              # Node.js dependencies and scripts
+│   ├── package-lock.json
+│   ├── sample.env                # Sample environment variable file
+│   └── server.js                 # Main entry point for the Express API
+│
+├── README.md                     # Project documentation
 
 
 
