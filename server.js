@@ -73,7 +73,7 @@ app.get('/convertglbtousdz', async (req, res) => {
     }
 });
 
-const isProduction = trueઇ;
+const isProduction = true;
 
 if (isProduction) {
     const httpsOptions = {
