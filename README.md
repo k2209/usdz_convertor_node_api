@@ -1,4 +1,4 @@
-# USDZ Convertor Node API By Krunal_[AhuraTechnosoft](https://ahuratechnosoft.com)
+# USDZ Convertor Node API By Krunal [AhuraTechnosoft](https://ahuratechnosoft.com)
 
 A self-hosted REST API to convert `.glb` 3D models to `.usdz` format using Docker, Node.js, and the [usd_from_gltf](https://github.com/google/usd_from_gltf) converter.  
 Easily deploy on your own server to offer fast USDZ conversion for iOS AR experiences.
