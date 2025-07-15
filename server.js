@@ -5,13 +5,15 @@ const { v4: uuidv4 } = require('uuid');
 const fetch = require('node-fetch');
 const { exec } = require('child_process');
 const https = require('https');
+const config = require('./config')
 
 const app = express();
 const PORT = process.env.PORT || 3003;
 
 const WORK_DIR = path.join(__dirname, 'temp');
 const PUBLIC_DIR = path.join(__dirname, 'public', 'converted');
-const PUBLIC_URL = 'https://dev.ahura.xyz:3003/converted';
+const DOMAIN = process.env.DOMAIN;
+const PUBLIC_URL = `${DOMAIN}/converted`;
 
 if (!fs.existsSync(WORK_DIR)) fs.mkdirSync(WORK_DIR, { recursive: true });
 if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
@@ -24,7 +26,7 @@ app.get('/convertglbtousdz', async (req, res) => {
     const glbUrl = req.query.url;
     if (!glbUrl) return res.status(400).json({ error: 'Missing ?url parameter' });
 
-    const id = uuidv4();
+    const id = path.basename(glbUrl, path.extname(url)); // 'Astronaut'    
     const glbPath = path.join(WORK_DIR, `${id}.glb`);
     const usdzPath = path.join(WORK_DIR, `${id}.usdz`);
     const finalUsdPath = path.join(PUBLIC_DIR, `${id}.usdz`);
@@ -73,9 +75,9 @@ app.get('/convertglbtousdz', async (req, res) => {
     }
 });
 
-const isProduction = true;
+const isHttps = config.PROTOCOL === 'https';
 
-if (isProduction) {
+if (isHttps) {
     const httpsOptions = {
         key: fs.readFileSync('/etc/letsencrypt/live/dev.ahura.xyz/privkey.pem'),
         cert: fs.readFileSync('/etc/letsencrypt/live/dev.ahura.xyz/fullchain.pem'),
