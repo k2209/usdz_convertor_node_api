@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 const { exec } = require('child_process');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3003;
 
 // Paths
 const WORK_DIR = path.join(__dirname, 'temp');
