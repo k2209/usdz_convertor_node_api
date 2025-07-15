@@ -76,7 +76,7 @@ NODE_ENV=production
 #### Or with PM2 for background run:
 
 
-6. (Optional) Serve via Nginx
+### 6. (Optional) Serve via Nginx
 You can reverse proxy the /converted directory for pretty URLs, but it's not required.
 
 API Usage
