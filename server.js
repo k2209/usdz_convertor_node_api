@@ -20,7 +20,7 @@ if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
 // Serve /converted as static
 app.use('/converted', express.static(PUBLIC_DIR));
 
-app.patch('/health', (req, res) => res.json({ success: true }));
+app.patch('/health', (req, res) => res.json({ message: "From USDZ Convertor",success: true }));
 
 app.get('/convertglbtousdz', async (req, res) => {
     const glbUrl = req.query.url;
