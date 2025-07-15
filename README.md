@@ -17,10 +17,7 @@ Easily deploy on your own server to offer fast USDZ conversion for iOS AR experi
 usd_convertor_node_api/
 ├── usd-from-gltf/         # Google usd_from_gltf source and Dockerfile(s)
 ├── usd/                   # (Optional) Additional USD libraries/assets if needed
-├── usdz_convertor_api/    # Node.js Express API code
-│   ├── public/
-│   │   └── converted/     # Exposed USDZ file output (publicly accessible)
-│   └── temp/              # Temporary working files (not public)
+<pre> usdz_convertor_node_api/ ├── usd-from-gltf/ # Google usd_from_gltf source and Dockerfile(s) ├── usd/ # (Optional) Additional USD libraries/assets if needed ├── usdz_convertor_api/ # Node.js Express API code │ ├── public/ │ │ └── converted/ # Exposed USDZ file output (publicly accessible) │ ├── temp/ # Temporary working files (not public) │ ├── .env # Environment variables │ ├── .gitignore │ ├── config.js │ ├── package.json │ ├── package-lock.json │ ├── sample.env │ └── server.js ├── README.md └── ... </pre>
 ├── README.md
 </pre>
 
