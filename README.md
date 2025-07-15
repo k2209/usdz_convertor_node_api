@@ -4,6 +4,11 @@ A self-hosted REST API to convert `.glb` 3D models to `.usdz` format using Docke
 Easily deploy on your own server to offer fast USDZ conversion for iOS AR experiences.
 
 
+```
+function test() {
+  console.log("This code will have a copy button to the right of it");
+}
+```
 
 ## Features
 
