@@ -56,6 +56,7 @@ cd usdz_convertor_node_api
 You must first build the base USD image, which is used for all further builds.
 
 cd usd
+<tab><tab>code/text here
 docker build -t leon/usd:latest .
 This will create a Docker image named leon/usd:latest from the Dockerfile inside the usd folder.
 
