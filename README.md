@@ -13,21 +13,12 @@ Easily deploy on your own server to offer fast USDZ conversion for iOS AR experi
 - Easy to set up with Node.js and Docker.
 
 
-<details> <summary>Click to view Markdown</summary>
-## Folder Structure
-
-usd_convertor_node_api/
-├── usd-from-gltf/ # Google usd_from_gltf source and Dockerfile(s)
-├── usd/ # (Optional) Additional USD libraries/assets if needed
-├── usdz_convertor_api/ # Node.js Express API code
-│ ├── public/
-│ │ └── converted/ # Exposed USDZ file output (publicly accessible)
-│ └── temp/ # Temporary working files (not public)
-├── README.md
-└── ... # (Dockerfiles, configs, .env, etc)
-
-
-</details>
+<pre>
+project-root/
+├── src/
+│   └── index.js
+└── README.md
+</pre>
 
 
 
