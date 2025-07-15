@@ -20,6 +20,8 @@ if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
 // Serve /converted as static
 app.use('/converted', express.static(PUBLIC_DIR));
 
+app.patch('/health', (req, res) => res.json({ success: true }));
+
 app.get('/convertglbtousdz', async (req, res) => {
     const glbUrl = req.query.url;
     if (!glbUrl) return res.status(400).json({ error: 'Missing ?url parameter' });
@@ -50,7 +52,7 @@ app.get('/convertglbtousdz', async (req, res) => {
 
         exec(dockerCmd, (err, stdout, stderr) => {
             // Always cleanup GLB after attempt
-            fs.unlink(glbPath, () => {});
+            fs.unlink(glbPath, () => { });
 
             if (err) {
                 if (fs.existsSync(usdzPath)) fs.unlinkSync(usdzPath);
