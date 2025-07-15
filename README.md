@@ -12,7 +12,7 @@ Easily deploy on your own server to offer fast USDZ conversion for iOS AR experi
 - Serves `.usdz` files over HTTP(S) for instant AR QuickLook on iOS.
 - Easy to set up with Node.js and Docker.
 
-
+<pre>
 usdz_convertor_node_api/
 ├── usd-from-gltf/                 # Google 'usd_from_gltf' source and main Dockerfile for building
 │   └── Dockerfile
@@ -34,7 +34,7 @@ usdz_convertor_node_api/
 │   └── server.js                 # Main entry point for the Express API
 │
 ├── README.md                     # Project documentation
-
+</pre>
 
 
 ## Requirements
