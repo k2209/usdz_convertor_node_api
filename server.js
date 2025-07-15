@@ -4,22 +4,19 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const fetch = require('node-fetch');
 const { exec } = require('child_process');
+const https = require('https');
 
 const app = express();
-const PORT = 3003;
+const PORT = process.env.PORT || 3003;
 
-// Paths
 const WORK_DIR = path.join(__dirname, 'temp');
-const PUBLIC_DIR = "/var/www/html/docker-gltf-to-udsz/usdz_convertor_node_api/public/converted"
-const PUBLIC_URL = 'http://34.47.157.113:/public'; // Change to your domain
+const PUBLIC_DIR = path.join(__dirname, 'public', 'converted');
+const PUBLIC_URL = 'https://dev.ahura.xyz:3003/converted';
 
-// Ensure working dirs exist
 if (!fs.existsSync(WORK_DIR)) fs.mkdirSync(WORK_DIR, { recursive: true });
 if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
 
-// Serve /converted as static
-app.use('/public', express.static('public'));
-
+app.use('/converted', express.static(PUBLIC_DIR));
 
 app.patch('/health', (req, res) => res.json({ message: "From USDZ Convertor", success: true }));
 
@@ -52,7 +49,6 @@ app.get('/convertglbtousdz', async (req, res) => {
         ].join(' ');
 
         exec(dockerCmd, (err, stdout, stderr) => {
-            // Always cleanup GLB after attempt
             fs.unlink(glbPath, () => { });
 
             if (err) {
@@ -60,12 +56,10 @@ app.get('/convertglbtousdz', async (req, res) => {
                 return res.status(500).json({ error: 'Conversion failed', details: stderr });
             }
 
-            // Move usdz to public folder
             fs.rename(usdzPath, finalUsdPath, (mvErr) => {
                 if (mvErr) {
                     return res.status(500).json({ error: 'Failed to move USDZ', details: mvErr.message });
                 }
-                // Return the link to the client
                 return res.json({
                     success: true,
                     usdz_url: `${PUBLIC_URL}/${id}.usdz`
@@ -79,4 +73,16 @@ app.get('/convertglbtousdz', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log('Server running on port', PORT));
+const isProduction = process.env.NODE_ENV === 'production';
+
+if (isProduction) {
+    const httpsOptions = {
+        key: fs.readFileSync('/etc/letsencrypt/live/dev.ahura.xyz/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/dev.ahura.xyz/fullchain.pem'),
+    };
+    https.createServer(httpsOptions, app).listen(PORT, () => {
+        console.log('HTTPS Server running on port', PORT);
+    });
+} else {
+    app.listen(PORT, () => console.log('HTTP Server running on port', PORT));
+}
