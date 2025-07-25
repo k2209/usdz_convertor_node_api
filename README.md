@@ -135,4 +135,4 @@ Credits
 - [leon/docker-gltf-to-udsz](https://github.com/leon/docker-gltf-to-udsz)
 - [Google usd_from_gltf](https://github.com/google/usd_from_gltf)
 - [Pixar USD](https://github.com/PixarAnimationStudios/USD)
-Node.js, Express, Docker
+- Node.js, Express, Docker
